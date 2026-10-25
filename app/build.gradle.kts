@@ -1,18 +1,17 @@
 plugins {
-id("com.android.application")
-id("org.jetbrains.kotlin.android")
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
-namespace = "com.pndarbar.tossfilter"
-compileSdk = 35
+    namespace = "com.pndarbar.tossfilter"
+    compileSdk = 35
 
-defaultConfig {
-    applicationId = "com.pndarbar.tossfilter"
-    minSdk = 23
-    targetSdk = 35
-    versionCode = 1
-    versionName = "1.0"
-}
-
+    defaultConfig {
+        applicationId = "com.pndarbar.tossfilter"
+        minSdk = 23
+        targetSdk = 35
+        versionCode = 1
+        versionName = "1.0"
+    }
 }
