@@ -1,27 +1,44 @@
 plugins {
-id("com.android.application")
-id("org.jetbrains.kotlin.android")
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
-namespace = "com.pndarbar.tossfilter"
-compileSdk = 35
+    namespace = "com.pndarbar.tossfilter"
+    compileSdk = 35
 
-defaultConfig {
-    applicationId = "com.pndarbar.tossfilter"
-    minSdk = 23
-    targetSdk = 35
-    versionCode = 1
-    versionName = "1.0"
-}
+    defaultConfig {
+        applicationId = "com.pndarbar.tossfilter"
+        minSdk = 23
+        targetSdk = 35
+        versionCode = 1
+        versionName = "1.0"
+    }
 
-compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
+    signingConfigs {
+        create("release") {
+            storeFile = file(
+                System.getenv("KEYSTORE_FILE")
+                    ?: "keystore/pn-darbar-release.jks"
+            )
+            storePassword = System.getenv("KEYSTORE_PASSWORD") ?: ""
+            keyAlias = System.getenv("KEY_ALIAS") ?: "pndarbar"
+            keyPassword = System.getenv("KEYSTORE_PASSWORD") ?: ""
+        }
+    }
 
-kotlinOptions {
-    jvmTarget = "17"
-}
+    buildTypes {
+        getByName("release") {
+            signingConfig = signingConfigs.getByName("release")
+        }
+    }
 
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 }
