@@ -25,11 +25,29 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Build Debug APK
-        run: gradle assembleDebug
+      - name: Decode release keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          test -n "$KEYSTORE_BASE64" || { echo "KEYSTORE_BASE64 missing"; exit 1; }
+          mkdir -p keystore
+          echo "$KEYSTORE_BASE64" | base64 --decode > keystore/pn-darbar-release.jks
+          test -s keystore/pn-darbar-release.jks
 
-      - name: Upload Debug APK
+      - name: Build signed Release APK
+        env:
+          KEYSTORE_FILE: keystore/pn-darbar-release.jks
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          test -n "$KEYSTORE_PASSWORD" || { echo "KEYSTORE_PASSWORD missing"; exit 1; }
+          test -n "$KEY_ALIAS" || { echo "KEY_ALIAS missing"; exit 1; }
+          test -n "$KEY_PASSWORD" || { echo "KEY_PASSWORD missing"; exit 1; }
+          gradle assembleRelease
+
+      - name: Upload Release APK
         uses: actions/upload-artifact@v4
         with:
-          name: PN-DARBAR-Debug-APK
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: PN-DARBAR-Release-APK
+          path: app/build/outputs/apk/release/app-release.apk

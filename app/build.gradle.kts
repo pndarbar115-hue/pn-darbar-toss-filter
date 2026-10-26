@@ -23,7 +23,7 @@ android {
             )
             storePassword = System.getenv("KEYSTORE_PASSWORD") ?: ""
             keyAlias = System.getenv("KEY_ALIAS") ?: "pndarbar"
-            keyPassword = System.getenv("KEYSTORE_PASSWORD") ?: ""
+            keyPassword = System.getenv("KEY_PASSWORD") ?: System.getenv("KEYSTORE_PASSWORD") ?: ""
         }
     }
 
