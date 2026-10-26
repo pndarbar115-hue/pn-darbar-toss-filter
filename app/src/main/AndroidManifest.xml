@@ -10,6 +10,7 @@
 
         <activity
             android:name="com.pndarbar.tossfilter.MainActivity"
+            android:label="PN DARBAR Toss Filter"
             android:exported="true">
 
             <intent-filter>
