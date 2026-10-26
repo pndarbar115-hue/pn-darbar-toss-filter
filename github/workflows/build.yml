@@ -3,7 +3,8 @@ name: Build PN DARBAR APK
 on:
 workflow_dispatch:
 push:
-branches: [main]
+branches:
+- main
 
 jobs:
 build:
@@ -21,6 +22,8 @@ steps:
 
   - name: Set up Gradle
     uses: gradle/actions/setup-gradle@v4
+    with:
+      gradle-version: '8.9'
 
   - name: Build APK
     run: gradle assembleDebug
