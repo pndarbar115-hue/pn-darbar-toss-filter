@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
+        android:icon="@drawable/ic_launcher"
         android:allowBackup="false"
         android:label="PN DARBAR Toss Filter"
         android:theme="@android:style/Theme.Material.NoActionBar"
