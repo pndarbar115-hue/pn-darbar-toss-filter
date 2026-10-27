@@ -17,7 +17,7 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = file(
+            storeFile = rootProject.file(
                 System.getenv("KEYSTORE_FILE")
                     ?: "keystore/pn-darbar-release.jks"
             )
